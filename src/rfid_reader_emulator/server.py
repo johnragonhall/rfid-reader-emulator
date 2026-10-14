@@ -140,6 +140,7 @@ def make_handler(state: EmulatorState) -> type[BaseHTTPRequestHandler]:
             self.send_header("Content-Length", str(len(data)))
             self.send_header("X-Content-Type-Options", "nosniff")
             self.end_headers()
+            # Every interpolated value is escaped or a constant; served as XML with nosniff.
             self.wfile.write(data)
 
         def _network_put(self, request_body: str) -> None:
